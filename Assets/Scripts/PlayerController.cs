@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     
 
         Jugador=GetComponent<CharacterController>();
+        Debug.Log("Hola mundo");
 
 
     } 
