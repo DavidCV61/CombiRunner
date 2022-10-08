@@ -6,16 +6,21 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField]private float MovDer;
+    [SerializeField]private float MovVer;
     [SerializeField]private float velMov;
-    [SerializeField]private float contsX=15f;
+    [SerializeField]private float contsX=1000f;
     [SerializeField]private float gravedad=20f;
     [SerializeField]private float salto=20f;
-     [SerializeField]private float limiteSuperior=9f;
+[SerializeField]private float limiteSuperior=9f;
       [SerializeField]private float limiteInferior=-9f;
+      private float Rotacional;
 
      [SerializeField] private float posVertical=0f;
     private CharacterController Jugador;
     private int carrilActual;
+
+  
+    private Vector3 Rotacion;
     private Vector3 direccion;
     
 
@@ -26,7 +31,10 @@ public class PlayerController : MonoBehaviour
         
     
 
+        
+        
         Jugador=GetComponent<CharacterController>();
+
         Debug.Log("Hola mundo");
 
 
@@ -35,20 +43,13 @@ public class PlayerController : MonoBehaviour
     {
 
 
-
-
-
-       
-        
-
-
         MovDer=Input.GetAxis("Horizontal");
-        direccion=new Vector3(MovDer*contsX,0,velMov);
+        MovVer=Input.GetAxis("Vertical");
+        direccion=new Vector3(MovDer*contsX,0,contsX*velMov);
+        transform.rotation=Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(direccion),10*Time.deltaTime);
 
         
        
-
-        
 
         if(Jugador.isGrounded){
 
@@ -70,8 +71,15 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        
+         
         Jugador.Move(direccion*Time.deltaTime);
+         
+        
+       
+
+     
+   
+        
          if(transform.position.x<=limiteInferior){
 
             direccion=Vector3.zero;
@@ -84,6 +92,8 @@ public class PlayerController : MonoBehaviour
             transform.position=new Vector3(limiteSuperior,transform.position.y,transform.position.z);
 
         }
+
+        
 
         
         
