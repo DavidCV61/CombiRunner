@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private float contsX=1000f;
     [SerializeField]private float gravedad=20f;
     [SerializeField]private float salto=20f;
-[SerializeField]private float limiteSuperior=9f;
-      [SerializeField]private float limiteInferior=-9f;
+[SerializeField]private float limiteSuperior=25f;
+      [SerializeField]private float limiteInferior=-25f;
       private float Rotacional;
 
      [SerializeField] private float posVertical=0f;
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
         MovDer=Input.GetAxis("Horizontal");
         MovVer=Input.GetAxis("Vertical");
-        direccion=new Vector3(MovDer*contsX,0,contsX*velMov);
+        direccion=new Vector3(MovDer*contsX,0,velMov);
         transform.rotation=Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(direccion),10*Time.deltaTime);
 
         
