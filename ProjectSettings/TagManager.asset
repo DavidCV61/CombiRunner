@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bloque
-  - Undefined
+  - Obstaculo
   layers:
   - Default
   - TransparentFX

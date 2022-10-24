@@ -1,10 +1,11 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField]private GameManager gamemanager;
     [SerializeField]private float MovDer;
     [SerializeField]private float MovVer;
     [SerializeField]private float velMov;
@@ -35,12 +36,15 @@ public class PlayerController : MonoBehaviour
         
         Jugador=GetComponent<CharacterController>();
 
-        Debug.Log("Hola mundo");
 
 
     } 
     private void Update()
     {
+
+        if(gamemanager.EstadoActual==EstadosDelJuego.Inicio || gamemanager.EstadoActual==EstadosDelJuego.GameOver){
+            return;
+        }
 
 
         MovDer=Input.GetAxis("Horizontal");
@@ -96,6 +100,25 @@ public class PlayerController : MonoBehaviour
         
 
         
+        
+    }
+
+     private void OnControllerColliderHit(ControllerColliderHit hit) {
+
+        if(hit.collider.CompareTag("Obstaculo")){
+
+
+            if(gamemanager.EstadoActual == EstadosDelJuego.GameOver){
+
+                return;
+            }
+            Debug.Log("Game Over");
+            gamemanager.CambiarEstado(EstadosDelJuego.GameOver);
+
+
+
+
+        }
         
     }
 
