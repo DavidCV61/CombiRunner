@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Bloques[] bloquesPrefabs;
 
     [SerializeField] private List<Bloques> listaBloquesNormales= new List<Bloques>();
+    [SerializeField] private List<Bloques> listaBloquesCoches= new List<Bloques>();
+     
 
     private Pooler pooler;
     private Bloques UltimoBloque;
@@ -27,14 +29,14 @@ public class LevelManager : MonoBehaviour
     for (int i = 0; i < BloquesAlInicio; i++)
     {
 
-        AnadirBloque(TipodeBloques.Normal,LongitudBloqueNormal);
+        AnadirBloque(TipodeBloques.Coches,LongitudBloqueNormal);
         
     }        
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
-            AnadirBloque(TipodeBloques.Normal,LongitudBloqueNormal);
+            AnadirBloque(TipodeBloques.Coches,LongitudBloqueNormal);
         }
     }
 
@@ -59,6 +61,10 @@ public class LevelManager : MonoBehaviour
                 case TipodeBloques.Normal:
                 listaBloquesNormales.Add(bloque);
                 break;
+                case TipodeBloques.Coches:
+                listaBloquesCoches.Add(bloque);
+                break;
+                
                 
                 default:
                 break;
@@ -80,10 +86,18 @@ public class LevelManager : MonoBehaviour
     private Bloques ObtenerBloquesSegunTipo(TipodeBloques tipo){
 
         Bloques nuevoBloque = null;
+        
         switch(tipo){
 
             case TipodeBloques.Normal:
             nuevoBloque = ObtenerInstanciadelPooler2(listaBloquesNormales);
+            break;
+            case TipodeBloques.Coches:
+            nuevoBloque = ObtenerInstanciadelPooler2(listaBloquesCoches);
+            if(nuevoBloque != null){
+                nuevoBloque.InicializarBloque();
+
+            }
             break;
         }
 
@@ -99,7 +113,7 @@ public class LevelManager : MonoBehaviour
     }
 
     private void  RespuestaSolicitudNuevoBloque(){
-        AnadirBloque(TipodeBloques.Normal,LongitudBloqueNormal);
+        AnadirBloque(TipodeBloques.Coches,LongitudBloqueNormal);
 
     }
 
